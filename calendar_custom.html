@@ -42,6 +42,11 @@
             min-height: 40px !important;
         }
         
+        /* Hide dates from other months */
+        .fc-day-other {
+            display: none !important;
+        }
+        
         @media (max-width: 768px) {
             body { padding: 5px; }
             .fc-header-toolbar { flex-direction: column !important; gap: 10px; }
@@ -80,8 +85,9 @@
             
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: isMobile ? 'listMonth' : 'dayGridMonth',
+                initialDate: new Date(),
                 headerToolbar: {
-                    left: 'prev,next',
+                    left: 'prev,next today',
                     center: 'title',
                     right: 'dayGridMonth,listMonth'
                 },
@@ -94,8 +100,9 @@
                 eventTimeFormat: { hour: 'numeric', minute: '2-digit', meridiem: 'short' },
                 height: 'auto',
                 dayMaxEvents: false,
+                fixedWeekCount: false,
+                showNonCurrentDates: false,
                 eventDidMount: function(info) {
-                    // Only apply styling in dayGrid (month) view, not list view
                     if (info.view.type === 'dayGridMonth') {
                         info.el.style.backgroundColor = info.event.backgroundColor;
                         info.el.style.borderColor = info.event.borderColor;
