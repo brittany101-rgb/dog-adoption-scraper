@@ -95,9 +95,12 @@
                 height: 'auto',
                 dayMaxEvents: false,
                 eventDidMount: function(info) {
-                    info.el.style.backgroundColor = info.event.backgroundColor;
-                    info.el.style.borderColor = info.event.borderColor;
-                    info.el.style.color = '#ffffff';
+                    // Only apply styling in dayGrid (month) view, not list view
+                    if (info.view.type === 'dayGridMonth') {
+                        info.el.style.backgroundColor = info.event.backgroundColor;
+                        info.el.style.borderColor = info.event.borderColor;
+                        info.el.style.color = '#ffffff';
+                    }
                 }
             });
             
