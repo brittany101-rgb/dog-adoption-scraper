@@ -36,11 +36,17 @@
             font-weight: 600;
         }
         
+        .fc-daygrid-event {
+            white-space: normal !important;
+            padding: 4px 6px !important;
+            min-height: 40px !important;
+        }
+        
         @media (max-width: 768px) {
             body { padding: 5px; }
             .fc-header-toolbar { flex-direction: column !important; gap: 10px; }
             .fc .fc-button { padding: 8px 12px; font-size: 14px; }
-            .fc-daygrid-event { font-size: 11px; padding: 2px 4px; }
+            .fc-daygrid-event { font-size: 11px; padding: 2px 4px !important; }
         }
     </style>
 </head>
@@ -67,7 +73,8 @@
                     end: event.end_datetime,
                     url: event.source_url,
                     backgroundColor: color,
-                    borderColor: color
+                    borderColor: color,
+                    textColor: '#ffffff'
                 };
             });
             
@@ -86,7 +93,12 @@
                 displayEventTime: true,
                 eventTimeFormat: { hour: 'numeric', minute: '2-digit', meridiem: 'short' },
                 height: 'auto',
-                dayMaxEvents: isMobile ? 2 : 3
+                dayMaxEvents: false,
+                eventDidMount: function(info) {
+                    info.el.style.backgroundColor = info.event.backgroundColor;
+                    info.el.style.borderColor = info.event.borderColor;
+                    info.el.style.color = '#ffffff';
+                }
             });
             
             calendar.render();
